@@ -203,6 +203,7 @@ MainWindow::~MainWindow()
 //客户端方法
 QString MainWindow::getHostIpAddress()
 {
+#if 0
     QString strIpAddress;
     QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
     // 获取第一个本主机的IPv4地址
@@ -219,6 +220,9 @@ QString MainWindow::getHostIpAddress()
      if (strIpAddress.isEmpty())
         strIpAddress = QHostAddress(QHostAddress::LocalHost).toString();
      return strIpAddress;
+#endif
+	//直接用本地地址127.0.0.1
+    return QHostAddress(QHostAddress::LocalHost).toString();
 }
 
 void MainWindow::initTCP()
@@ -696,7 +700,7 @@ void MainWindow::initial_talklist()
     QPixmap touxiang;
     touxiang.load(toux);
     ui->pushButton_6->setIcon(touxiang);
-    QString str=QString("select user_friend from talklist where user_id='%1'").arg(nowid);
+    QString str=QString("select user_friend from userfriend where user_id='%1'").arg(nowid);
     query.exec(str);
     QString frd;
     if(query.next())
